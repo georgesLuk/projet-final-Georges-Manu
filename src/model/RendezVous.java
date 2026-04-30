@@ -1,9 +1,8 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class RendezVous {
-
     private Date date;
     private String typeConsultation;
     private EtatRendezVous etat;
@@ -26,3 +25,4 @@ public class RendezVous {
         return date + " - " + typeConsultation + " - " + etat;
     }
 }
+
