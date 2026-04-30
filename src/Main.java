@@ -43,6 +43,10 @@ public class Main {
                     afficherRendezVous();
                     break;
 
+                case 6:
+                    System.out.println("Test");
+                    break;
+
                 case 0:
                     System.out.println("Au revoir !");
                     break;
