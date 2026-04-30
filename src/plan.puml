@@ -1,0 +1,95 @@
+@startuml
+
+' ========================
+' Classe abstraite
+' ========================
+abstract class Personne {
+    - nom : String
+    - prenom : String
+    - telephone : String
+    + getNom() : String
+    + getPrenom() : String
+    + getTelephone() : String
+    + afficherInfos() : String
+}
+
+' ========================
+' Classes héritées
+' ========================
+class Patient {
+    - numeroPatient : int
+    - dateNaissance : String
+    - adresse : String
+    + getNumeroPatient() : int
+    + getDateNaissance() : String
+}
+
+class ProfessionnelSante {
+    - idProfessionnel : int
+    - specialite : String
+    - role : String
+    + getSpecialite() : String
+}
+
+Personne <|-- Patient
+Personne <|-- ProfessionnelSante
+
+' ========================
+' Dossier patient
+' ========================
+class DossierPatient {
+    - idDossier : int
+    - notes : List<String>
+    - statut : StatutDossier
+    + ajouterNote(note : String)
+    + changerStatut(statut : StatutDossier)
+}
+
+Patient "1" --> "1" DossierPatient
+
+' ========================
+' Rendez-vous
+' ========================
+class RendezVous {
+    - date : Date
+    - typeConsultation : String
+    - etat : EtatRendezVous
+    + changerEtat(etat : EtatRendezVous)
+}
+
+Patient "1" --> "*" RendezVous
+ProfessionnelSante "1" --> "*" RendezVous
+
+' ========================
+' Classe gestion (service)
+' ========================
+class GestionCentre {
+    - patients : List<Patient>
+    - professionnels : List<ProfessionnelSante>
+    - rendezVous : List<RendezVous>
+    + ajouterPatient(p : Patient)
+    + supprimerPatient(id : int)
+    + ajouterRendezVous(r : RendezVous)
+    + afficherPatients()
+}
+
+GestionCentre --> Patient
+GestionCentre --> ProfessionnelSante
+GestionCentre --> RendezVous
+
+' ========================
+' Enumérations
+' ========================
+enum StatutDossier {
+    ACTIF
+    FERME
+    EN_SUIVI
+}
+
+enum EtatRendezVous {
+    PLANIFIE
+    TERMINE
+    ANNULE
+}
+
+@enduml
